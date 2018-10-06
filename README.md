@@ -1,4 +1,49 @@
-SELECT
+create table orders
+(
+  id         int auto_increment,
+  quantity   int not null,
+  user_id    int null,
+  product_id int null,
+  constraint orders_id_uindex
+  unique (id)
+);
+
+alter table orders
+  add primary key (id);
+
+create table products
+(
+  id           int auto_increment,
+  price        float        null,
+  product_name varchar(255) null,
+  category_id  int          not null,
+  constraint products_user_id_uindex
+  unique (id)
+);
+
+alter table products
+  add primary key (id);
+
+create table users
+(
+  id       int auto_increment,
+  `e-mail` varchar(255) not null,
+  name     varchar(255) not null,
+  balance  decimal      null,
+  constraint `users_e-mail_uindex`
+  unique (`e-mail`),
+  constraint users_id_uindex
+  unique (id)
+);
+
+alter table users
+  add primary key (id);
+
+
+
+*****************************************************************************
+
+ELECT
   us.name, SUM(price*quantity) as Sum
 FROM products as ps
 JOIN orders as o ON o.product_id=ps.id
